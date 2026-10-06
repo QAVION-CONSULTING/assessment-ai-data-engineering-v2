@@ -1,0 +1,26 @@
+{
+  "entry_point": "step_planner",
+  "nodes": [
+    {"name": "step_planner",    "handler": "run_step_planner",    "tools": []},
+    {"name": "dialog_executor", "handler": "run_dialog_executor", "tools": ["company_research"]},
+    {"name": "gate_reviewer",   "handler": "run_gate_reviewer",   "tools": []}
+  ],
+  "edges": [],
+  "conditional_edges": [
+    {
+      "source": "step_planner",
+      "router": "route_after_planner",
+      "path_map": {"dialog": "dialog_executor", "gate": "gate_reviewer", "__end__": "__end__"}
+    },
+    {
+      "source": "dialog_executor",
+      "router": "route_after_dialog",
+      "path_map": {"planner": "step_planner", "__end__": "__end__"}
+    },
+    {
+      "source": "gate_reviewer",
+      "router": "route_after_gate",
+      "path_map": {"planner": "step_planner", "__end__": "__end__"}
+    }
+  ]
+}

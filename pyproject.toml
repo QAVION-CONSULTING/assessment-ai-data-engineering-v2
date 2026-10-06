@@ -1,0 +1,42 @@
+[project]
+name = "assessment-ai-data-engineering"
+version = "2026.10.0"
+description = "Hiring assessment for the Data & AI team: agentic, data platform and industrial ML tracks"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "duckdb>=1.5.6",
+    "dynaconf>=3.3.5",
+    "httpx>=0.28.1",
+    "langgraph>=1.2.13",
+    "pandas>=3.0.6",
+    "pyarrow>=25.0.1",
+    "pydantic>=2.13.5",
+    "python-dotenv>=1.2.4",
+    "scikit-learn>=1.9.1",
+    "tzdata>=2026.5",
+]
+
+[project.optional-dependencies]
+llm = [
+    "litellm>=1.104.0",
+]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+pythonpath = ["."]
+addopts = "-q"
+
+[tool.ruff]
+line-length = 100
+
+[tool.ruff.lint]
+# typing.List/Optional style matches the production codebase this was taken from
+ignore = ["UP006", "UP007", "UP035", "UP045", "UP046"]
+
+[dependency-groups]
+dev = [
+    "pytest>=9.1.1",
+    "pytest-asyncio>=1.4.0",
+    "ruff>=0.16.10",
+]
